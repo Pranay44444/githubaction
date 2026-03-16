@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+      <div className="app-container">
+        <div className="header">
+          <h1>Counter App</h1>
+          <button 
+            className="theme-btn"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+        </div>
+
+        <div className="counter-box">
+          <h2>Count: {count}</h2>
+          <div className="button-group">
+            <button 
+              className="btn btn-minus"
+              onClick={() => setCount(count - 1)}
+            >
+              ➖ Decrease
+            </button>
+            <button 
+              className="btn btn-reset"
+              onClick={() => setCount(0)}
+            >
+              🔄 Reset
+            </button>
+            <button 
+              className="btn btn-plus"
+              onClick={() => setCount(count + 1)}
+            >
+              ➕ Increase
+            </button>
+          </div>
+        </div>
+
+        <div className="info">
+          <p>Current value is <strong>{count}</strong></p>
+          <p>{count > 0 && '🎉'} {count < 0 && '❄️'} {count === 0 && '😐'}</p>
+        </div>
+      </div>
     </div>
   );
 }
